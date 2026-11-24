@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -7,6 +8,20 @@
 <meta name="description" content="Join TEAM SUBHA ON TOP on Telegram.">
 <meta name="theme-color" content="#02030a">
 <meta name="color-scheme" content="dark">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1089424750779497');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
 <style>
   @property --angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 
@@ -471,6 +486,9 @@
 </style>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1089424750779497&ev=PageView&noscript=1"
+  alt=""></noscript>
 
   <div class="bg" aria-hidden="true">
     <div class="bg__aurora"></div>
@@ -556,6 +574,7 @@
   var timerId    = null;
   var shown      = SECONDS;
   var deadline   = 0;
+  var leadTracked = false;
 
   /* ---- In-memory-only interaction signals (nothing is stored or transmitted) ---- */
   var loadedAt = Date.now();
@@ -596,6 +615,12 @@
 
     // Programmatically generated clicks are ignored and never counted as manual.
     if (!e.isTrusted) { signals.ignoredClicks++; return; }
+
+    // Count one Lead for a real manual Join Now click, never for auto-redirect.
+    if (!leadTracked && typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead');
+      leadTracked = true;
+    }
 
     var now = Date.now();
     if (signals.lastClickTime && (now - signals.lastClickTime) < 400) signals.rapidClicks++;
